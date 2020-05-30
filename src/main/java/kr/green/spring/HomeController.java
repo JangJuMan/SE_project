@@ -27,7 +27,9 @@ public class HomeController {
 	@RequestMapping(value="/")
 	public ModelAndView main(ModelAndView mv) throws Exception{
 		mv.setViewName("/main/home");
-		mv.addObject("setHeader", "타일즈테스트");
+		mv.addObject("setHeader", "타일즈테스트: value : /");
+//		mv.setViewName("/main/login");
+//		mv.addObject("setHeader", "Site Login");
 		System.out.println(memberService.getEmail("test_id_1"));
 		return mv;
 	}
@@ -35,29 +37,7 @@ public class HomeController {
 	@RequestMapping(value= {"/main/home","/home.do"})
 	public ModelAndView openTilesView(ModelAndView mv) throws Exception{
 		mv.setViewName("/main/home");//타일즈 view => 일반 view
-		mv.addObject("setHeader", "타일즈테스트");
+		mv.addObject("setHeader", "타일즈테스트: value : /main/home");
 		return mv;
 	}
-	
-	
-//	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
-	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-//	@RequestMapping(value = "/", method = RequestMethod.GET)
-//	public String home(Locale locale, Model model) {
-//		logger.info("Welcome home! The client locale is {}.", locale);
-//		
-//		Date date = new Date();
-//		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-//		
-//		String formattedDate = dateFormat.format(date);
-//		
-//		model.addAttribute("serverTime", formattedDate );
-//		
-//		return "home";
-//	}
-//	
 }

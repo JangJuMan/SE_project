@@ -35,7 +35,21 @@
 	        </beans:list>
 	    </beans:property>
 	</beans:bean>
-
 	
+	<!-- NaverLoginBO Class에 대한 Bean설정 추가 -->
+	<beans:bean id="naverLoginBO" class="kr.green.spring.NaverLoginBO" />
+	
+	<!-- google Class Bean설정 추가 -->
+	<!-- 클라이언트ID와 보안비밀 세팅-->
+	<!-- <beans:bean id="googleConnectionFactory"
+		class="org.springframework.social.google.connect.GoogleConnectionFactory">
+		<beans:constructor-arg value="430211881257-ukcr71s3daqs6kuuagk7u2lf1606r2vc.apps.googleusercontent.com" />
+		<beans:constructor-arg value="n8DuQb_JgAvrmA9qcFzWZOUy" />
+	</beans:bean>
+	승인된 자바스크립트 원본과 승인된 리디렉션 URI
+	<beans:bean id="googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters">
+		<beans:property name="scope" value="https://www.googleapis.com/auth/plus.login" />
+		<beans:property name="redirectUri" value="http://localhost:8080/sts/callback" />
+	</beans:bean> -->
 	
 </beans:beans>

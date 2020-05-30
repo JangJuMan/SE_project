@@ -5,29 +5,28 @@
  
 <html>
 <head>
-<title>Explosion</title>
-<jsp:include page="/WEB-INF/views/include/head.jsp"></jsp:include>
+	<title>Main Page</title>
+	<jsp:include page="/WEB-INF/views/include/head.jsp"></jsp:include>
 </head>
 <body class="wrapper">
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">        
         <tiles:insertAttribute name="header"/>        
         <tiles:insertAttribute name="menu" />    
     </nav>
-     <div id="page-wrapper">
-             <div class="row">
-                <div class="col-lg-12">    
-                    <h1 class="page-header">${setHeader}</h1>
-                </div>
-            </div>
-            <div class="row">                 
-                <tiles:insertAttribute name="body" />                                                  
-            </div>
-          
-     </div>
-    <div class="main_footer">
-        <div class="main_footer-inner">
-            <tiles:insertAttribute name="footer" />
-        </div>
-    </div>
+    <div id="page-wrapper">
+	    <div class="row">
+			<div class="col-lg-12">    
+				<h1 class="page-header">${setHeader}</h1>
+			</div>
+		</div>
+		<div class="row">                 
+			<tiles:insertAttribute name="body" />                                                  
+		</div>
+	</div>
+	<div class="main_footer">
+		<div class="main_footer-inner">
+			<tiles:insertAttribute name="footer" />
+		</div>
+	</div>
 </body>
 </html>
