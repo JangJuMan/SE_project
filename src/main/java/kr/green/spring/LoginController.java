@@ -98,12 +98,28 @@ public class LoginController {
 		//Top레벨 단계 _response 파싱
 		JSONObject response_obj = (JSONObject)jsonObj.get("response");
 		//response의 nickname값 파싱
-		String nickname = (String)response_obj.get("nickname");
-		System.out.println(nickname);
+		String naver_id = (String)response_obj.get("id");
+		String naver_nickname = (String)response_obj.get("nickname");
+		String naver_age = (String)response_obj.get("age");
+		String naver_gender = (String)response_obj.get("gender");
+		String naver_email = (String)response_obj.get("email");
+		String naver_name = (String)response_obj.get("name");
+		System.out.println(naver_id);
+		System.out.println(naver_nickname);
+		System.out.println(naver_age);
+		System.out.println(naver_gender);
+		System.out.println(naver_email);
+		System.out.println(naver_name);
 		
 		//4.파싱 닉네임 세션으로 저장
-		session.setAttribute("sessionId",nickname); //세션 생성
-		model.addAttribute("result", apiResult);
+//		session.setAttribute("naver_id",naver_id); //세션 생성
+		session.setAttribute("nickname",naver_nickname); //세션 생성
+		session.setAttribute("age",naver_age); //세션 생성
+		session.setAttribute("gender",naver_gender); //세션 생성
+		session.setAttribute("email",naver_email); //세션 생성
+		session.setAttribute("user_name",naver_name); //세션 생성
+		session.setAttribute("session_validity", true);
+		model.addAttribute("name", apiResult);
 //		return "login";
 		return "naverSuccess";
 	}
@@ -112,7 +128,8 @@ public class LoginController {
 	@RequestMapping(value = "/logout", method = { RequestMethod.GET, RequestMethod.POST })
 	public String logout(HttpSession session)throws IOException {
 		System.out.println("여기는 logout");
-		session.invalidate();
+//		session.invalidate();
+		session.setAttribute("session_validity", false);
 		return "redirect:index.jsp";
 	}
 }

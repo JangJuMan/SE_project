@@ -39,8 +39,8 @@
 	<h2 style="text-align: center" id="name"></h2>
 	<h4 style="text-align: center" id="email"></h4>
 	<h2> 네이버 아이디 로그인 성공하셨습니다!! </h2>
-	<h3>'${sessionId}' 님 환영합니다! </h3>
-	<h3><a href="main/home">'${sessionId}' 계정으로 접속하기</a></h3>
+	<h3>'${user_name}' 님 환영합니다! </h3>
+	<h3><a href="main/home">'${email}' 계정으로 접속하기</a></h3>
 	<h3><a href="logout">로그아웃</a></h3>
 </body>
 </html>
