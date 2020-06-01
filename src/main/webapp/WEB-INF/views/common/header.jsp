@@ -52,7 +52,7 @@
 	}
 	.setting{
 	  font-size: 3em;
-	  padding: 3px
+	  padding: 3px;
 	}
 	.setting:hover{
 	  cursor: pointer;

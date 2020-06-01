@@ -43,4 +43,18 @@ public class HomeController {
 		System.out.println("GO MAIN >>> " + session.getAttribute("user_name"));
 		return mv;
 	}
+	
+	@RequestMapping(value= {"/main/setting","/setting.do"})
+	public ModelAndView settingView(ModelAndView mv) throws Exception{
+		mv.setViewName("/main/setting");//타일즈 view => 일반 view
+//		mv.addObject("setHeader", "타일즈테스트: value : /main/home");
+		return mv;
+	}
+	
+	@RequestMapping(value= {"/main/private","/private.do"})
+	public ModelAndView privateView(ModelAndView mv) throws Exception{
+		mv.setViewName("/main/private");//타일즈 view => 일반 view
+//		mv.addObject("setHeader", "타일즈테스트: value : /main/home");
+		return mv;
+	}
 }
