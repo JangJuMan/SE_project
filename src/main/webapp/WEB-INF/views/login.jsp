@@ -6,7 +6,7 @@
 	<title>Login Page</title>
 	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script> 
-	<link rel="stylesheet" type="text/css" href="total.css"/>
+	<!-- <link rel="stylesheet" type="text/css" href="total.css"/> -->
 	<style type="text/css">
 	.html, div, body{
 	  margin: 0;

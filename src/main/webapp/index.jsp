@@ -4,7 +4,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>SE Team Project Management System</title>
-	<link rel="stylesheet" type="text/css" href="total.css"/>
+	<!-- <link rel="stylesheet" type="text/css" href="total.css"/> -->
 	<style type="text/css">
 	.container{
 		text-align: center;
@@ -14,6 +14,8 @@
 	    padding-bottom: 10em;
 	    background-color: #3bb97a;
 	    color: white;
+	    border: 1px solid #bbb;
+	    border-radius: 10px;
 	}
         .title{
           font-size: 50px;
@@ -24,7 +26,7 @@
         .go-login-btn{
             padding: 1em 2em;
             border-radius: 5px;
-            border: none;
+            border: 1px solid #bbb;
             background-color: #8bbef1;
             font-size: 18px;
         }

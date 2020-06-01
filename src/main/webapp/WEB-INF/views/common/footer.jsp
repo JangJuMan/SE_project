@@ -5,11 +5,12 @@
 	<style type="text/css">
 		.footer{
 			border: 1px solid black;
-			color : blue;
+			color : red;
+			float: left;
 		}
 	</style>
 </head>
 <body>
-	<div class="footer">footer</div>
+	<div class="footer">footer도 안쓰지 않을까요..?</div>
 </body>
 </html>

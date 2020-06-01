@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -43,4 +43,4 @@
 	<h3><a href="main/home">'${email}' 계정으로 접속하기</a></h3>
 	<h3><a href="logout">로그아웃</a></h3>
 </body>
-</html>
+</html> --%>

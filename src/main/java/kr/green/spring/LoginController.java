@@ -120,8 +120,8 @@ public class LoginController {
 		session.setAttribute("user_name",naver_name); //세션 생성
 		session.setAttribute("session_validity", true);
 		model.addAttribute("name", apiResult);
-//		return "login";
-		return "naverSuccess";
+		return "login";
+//		return "naverSuccess";
 	}
 	
 	//로그아웃

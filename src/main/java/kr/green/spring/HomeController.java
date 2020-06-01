@@ -4,6 +4,8 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,14 +32,15 @@ public class HomeController {
 		mv.addObject("setHeader", "타일즈테스트: value : /");
 //		mv.setViewName("/main/login");
 //		mv.addObject("setHeader", "Site Login");
-		System.out.println(memberService.getEmail("test_id_1"));
+//		System.out.println(memberService.getEmail("test_id_1"));
 		return mv;
 	}
 	
 	@RequestMapping(value= {"/main/home","/home.do"})
-	public ModelAndView openTilesView(ModelAndView mv) throws Exception{
+	public ModelAndView openTilesView(ModelAndView mv, HttpSession session) throws Exception{
 		mv.setViewName("/main/home");//타일즈 view => 일반 view
-		mv.addObject("setHeader", "타일즈테스트: value : /main/home");
+//		mv.addObject("setHeader", "타일즈테스트: value : /main/home");
+		System.out.println("GO MAIN >>> " + session.getAttribute("user_name"));
 		return mv;
 	}
 }

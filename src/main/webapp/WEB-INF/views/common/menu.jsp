@@ -10,6 +10,6 @@
 	</style>
 </head>
 <body>
-	<div class="menu">menu</div>
+	<div class="menu">menu는 빼야 할 것 같네요</div>
 </body>
 </html>
