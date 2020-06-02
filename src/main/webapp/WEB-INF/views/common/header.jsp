@@ -80,16 +80,16 @@
 <body>
 	<div class="header">
 		<div class="left-header">
-			<a onClick="location.href='home'"><i class="fas fa-home go-home"></i></a> 
-			<a onClick="location.href='../login'"><i class="fas fa-sign-out-alt logout"></i></a>
+			<a onClick="location.href='http://localhost:8080/spring/main/home'"><i class="fas fa-home go-home"></i></a> 
+			<a onClick="location.href='http://localhost:8080/spring/login'"><i class="fas fa-sign-out-alt logout"></i></a>
 		</div>
-		<div class="middle-header" onClick="location.href='home'">
+		<div class="middle-header" onClick="location.href='http://localhost:8080/spring/main/home'">
 			<h1 class="title">Project Management System</h1>
 		</div>
 		<div class="right-header">
-			<a onClick="location.href='setting'"><i class="fas fa-cog setting"></i></a>
+			<a onClick="location.href='http://localhost:8080/spring/main/setting'"><i class="fas fa-cog setting"></i></a>
 			<i class="far fa-bell alarm"></i>
-			<a onClick="location.href='private'"><i class="fas fa-user go-private"></i></a>
+			<a onClick="location.href='http://localhost:8080/spring/main/private'"><i class="fas fa-user go-private"></i></a>
 		</div>
 	</div>
 </body>

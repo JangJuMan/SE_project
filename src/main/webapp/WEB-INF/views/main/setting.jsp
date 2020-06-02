@@ -76,9 +76,9 @@
 			<label for="font-size">폰트 사이즈</label>
 			<select name="font" id="font-select">
 				<option value="14px">14px</option>
-				<option value="14px">16px</option>
-				<option value="14px">18px</option>
-				<option value="14px">20px</option>
+				<option value="16">16px</option>
+				<option value="18">18px</option>
+				<option value="20">20px</option>
 			</select>
 		</div>
 		<div class="setting-div">

@@ -128,7 +128,7 @@
 			</div>
 			<div class="index-area">
 				<h2 class="index-title">${user_name} 님이 참여하고 있는 팀 목록입니다.</h2>
-				<div class="index-team">
+				<div class="index-team" onClick="location.href='http://localhost:8080/spring/room/1/main'">
 					<h3>TEAM NAME 1</h3>
 				</div>
 				<div class="index-team">
