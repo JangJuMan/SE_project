@@ -61,7 +61,7 @@
 	.alarm{
 	  font-size: 3em;
 	  padding: 3px;
-	  font-weight: bold;
+	  font-weight: bold !important;
 	}
 	.alarm:hover{
 	  cursor: pointer;

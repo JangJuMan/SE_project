@@ -10,10 +10,10 @@
 	  margin: 0;
 	  padding: 0;
 	}
-.container{
-  float: left;
-  width: 100%;
-}
+	.container{
+	  float: left;
+	  width: 100%;
+	}
     .left-container{
       border: 1px solid #bbb;
       border-radius: 10px;
@@ -97,6 +97,10 @@
 			.index-add-team:hover{
 			  cursor: pointer;
 			}
+			
+			.calendar-div{
+				padding: 1em;
+			}
 	</style>
 </head>
 <body>
@@ -118,7 +122,9 @@
 		<div class="right-container">
 			<div class="calendar-area">
 				<h2 class="calendar-title">${user_name} 님의 일정입니다.</h2>
-				<div>캘린더가 들어갈 예정입니다. </div>
+				<div class="calendar-div">
+					<jsp:include page="/WEB-INF/views/main/home_calendar.jsp"></jsp:include>
+				</div>
 			</div>
 			<div class="index-area">
 				<h2 class="index-title">${user_name} 님이 참여하고 있는 팀 목록입니다.</h2>
