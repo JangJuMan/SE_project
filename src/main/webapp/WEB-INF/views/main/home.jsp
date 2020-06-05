@@ -10,6 +10,9 @@
 	  margin: 0;
 	  padding: 0;
 	}
+	.a:hover{
+	  cursor: pointer;
+	}
 	.container{
 	  float: left;
 	  width: 100%;
@@ -88,11 +91,13 @@
               display: inline-block;
               border: 1px solid #aaa;
               border-radius: 10px;
-              padding: 0.5%;
               margin: 0.5%;
               width: 22%;
               text-align: center;
-              background-color: #ebf6ff
+              background-color: #ebf6ff;
+              font-size: 20px;
+			  font-weight: bold;
+			  padding: 1em 2em;
             }
 			.index-add-team:hover{
 			  cursor: pointer;
@@ -101,47 +106,61 @@
 			.calendar-div{
 				padding: 1em;
 			}
+			.create-team{
+			  border: 1px solid #bbb;
+	          padding: 1em;
+	          border-radius: 5px;
+	          margin: 1em 0.5em;
+	          background-color: #e1ffed;
+	          font-weight: bold;
+	          font-size: 20px;
+	          width: 90%;
+			}
+			.create-team:hover{
+				cursor: pointer;
+			}
 	</style>
 </head>
 <body>
-	<div class="container">
-		<div class="left-container">
-			<h2>팀 목록</h2>
-			<div class="team-info">
-				<h3 class="team-name">TEAM 1</h3>
-				<p class="team-task">나에게 부여된 일 1</p>
-				<p class="team-task">나에게 부여된 일 2</p>
+	<form action="makeRoom" method="get" onsubmit="enterTitle()">
+		<input name="title" type="hidden" value="" id="team_name">
+		<div class="container">
+			<div class="left-container">
+				<h2>팀 목록</h2>
+				<c:forEach var="i" begin="0" end="${room_count}">
+					<div class="team-info">
+						<h3 class="team-name">${RoomList[i].room_title}(${RoomList[i].room_id})</h3>
+						<p class="team-task">나에게 부여된 일 1</p>
+						<p class="team-task">나에게 부여된 일 2</p>
+					</div>
+				</c:forEach>
+				<input class="create-team" type="submit" value="+ Create a Team">
 			</div>
-			<div class="team-info">
-				<h3 class="team-name">TEAM 2</h3>
-				<p class="team-task">나에게 부여된 일 1</p>
-				<p class="team-task">나에게 부여된 일 2</p>
-			</div>
-			<a><h3 class="team-info">+ Create a Team</h3></a>
-		</div>
-		<div class="right-container">
-			<div class="calendar-area">
-				<h2 class="calendar-title">${user_name} 님의 일정입니다.</h2>
-				<div class="calendar-div">
-					<jsp:include page="/WEB-INF/views/main/home_calendar.jsp"></jsp:include>
+			<div class="right-container">
+				<div class="calendar-area">
+					<h2 class="calendar-title">${user_name} 님의 일정입니다.</h2>
+					<div class="calendar-div">
+						<jsp:include page="/WEB-INF/views/main/home_calendar.jsp"></jsp:include>
+					</div>
 				</div>
-			</div>
-			<div class="index-area">
-				<h2 class="index-title">${user_name} 님이 참여하고 있는 팀 목록입니다.</h2>
-				<div class="index-team" onClick="location.href='http://localhost:8080/spring/room/1/main'">
-					<h3>TEAM NAME 1</h3>
-				</div>
-				<div class="index-team">
-					<h3>TEAM NAME 1</h3>
-				</div>
-				<div class="index-team">
-					<h3>TEAM NAME 1</h3>
-				</div>
-				<div class="index-add-team">
-					<h3>+ Create New Team</h3>
+				<div class="index-area">
+					<h2 class="index-title">${user_name} 님이 참여하고 있는 팀 목록입니다.</h2>
+					<c:forEach var="i" begin="0" end="${room_count}">
+						<div class="index-team" onClick="location.href='http://localhost:8080/spring/room/${RoomList[i].room_id}/main'">
+						<h3>${RoomList[i].room_title}(${RoomList[i].room_id})</h3>
+					</div>
+					</c:forEach>
+					<input class="index-add-team" type="submit" value="+ Create a Team"> 
 				</div>
 			</div>
 		</div>
-	</div>
+	</form>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+function enterTitle(){
+	var input = prompt("방 제목을 입력해주세요", "New Room Title");
+	document.getElementById("team_name").value = input;
+}
+</script>
 </html>

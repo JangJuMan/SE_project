@@ -25,4 +25,20 @@
   <insert id="insertSetting">
   	UPDATE setting SET fontSize = #{font} WHERE uid = #{uid};
   </insert>
+  
+  <select id="getRoom" resultType="HashMap">
+  	SELECT * FROM room WHERE host_id = #{uid} ORDER BY room_id;
+  </select>
+  
+  <insert id="makeRoom">
+  	INSERT INTO room (host_id, guest_id, room_title, room_password) VALUES (#{uid}, 0, #{title}, #{pw});
+  </insert>
+  
+  <select id="countAllbyID" resultType="int">
+  	SELECT COUNT(*) AS cnt FROM room WHERE host_id=#{id};
+  </select>
+  
+  <select id="getNewRoomID" resultType="int">
+  	SELECT room_id FROM room WHERE host_id = #{uid} ORDER BY room_id DESC LIMIT 1;
+  </select>
 </mapper>

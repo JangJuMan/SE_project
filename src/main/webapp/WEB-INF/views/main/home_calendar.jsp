@@ -36,7 +36,7 @@
 		A:link { font-family:"돋움";color:#000000; text-decoration:none; }
 		A:visited { font-family:"돋움";color:#000000; text-decoration:none; }
 		A:active { font-family:"돋움";color:red; text-decoration:none; }
-		A:hover { font-family:"돋움";color:red;text-decoration:none;}
+		A:hover { font-family:"돋움";color:red; cursor: pointer;}
 		.day{
 			width:100px; 
 			height:30px;

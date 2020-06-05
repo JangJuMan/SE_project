@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.green.spring.dto.DateData;
 import kr.green.spring.service.MemberService;
 
+
 /**
  * Handles requests for the application home page.
  */
@@ -34,21 +35,12 @@ public class HomeController {
 	@Autowired
 	MemberService memberService;
 	
-	@RequestMapping(value="/")
-	public ModelAndView main(ModelAndView mv) throws Exception{
-		mv.setViewName("/main/home");
-		mv.addObject("setHeader", "타일즈테스트: value : /");
-//		mv.setViewName("/main/login");
-//		mv.addObject("setHeader", "Site Login");
-//		System.out.println(memberService.getEmail("test_id_1"));
-		return mv;
-	}
-	
 	@RequestMapping(value= {"/main/home","/home.do"})
-	public ModelAndView openTilesView(ModelAndView mv, Model model, HttpServletRequest request, DateData dateData, HttpSession session) throws Exception{
+	public ModelAndView openTilesView(ModelAndView mv, Model model, HttpServletRequest request, 
+			DateData dateData, HttpSession session) throws Exception{
 		mv.setViewName("/main/home");//타일즈 view => 일반 view
 		
-		if(session.getAttribute("session_validity") == "true") {
+		if((Boolean) session.getAttribute("session_validity")) {
 			// 로그인 시 이메일 계정이 없다면 생성한다.
 			String email = (String)session.getAttribute("email");
 			String name = (String)session.getAttribute("user_name");
@@ -60,6 +52,18 @@ public class HomeController {
 			session.setAttribute("uid", uid);
 			System.out.println("setting > uid : " + uid);
 			memberService.insertAdditionalNewUser(uid);
+			
+			// room 조회하기 
+			mv.addObject("RoomList", memberService.getRoom(uid));
+			
+			System.out.println("before cnt");
+			
+			// room 개수 세기
+			int cnt = memberService.countAllbyID(uid, "room") - 1;
+			System.out.println("cnt : "+cnt);
+			mv.addObject("room_count", cnt);
+			
+			System.out.println("after cnt");
 		}
 		
 		// 달력 : 달력쓰고 싶은 페이지에서 이렇게 선언 한다음,
@@ -67,6 +71,33 @@ public class HomeController {
 		calendarView(mv, model, request, dateData);
 		return mv;
 	}
+	
+	@RequestMapping(value = "/main/makeRoom", method = { RequestMethod.GET, RequestMethod.POST })
+	public String makeRoom(HttpSession session, Model model, @RequestParam("title")String title)throws IOException {
+		if((Boolean) session.getAttribute("session_validity")) {
+			System.out.println("여기는 makeRoom");
+			Integer uid = (Integer) session.getAttribute("uid");
+			System.out.println(">> uid >> : "+uid+"\ntitle : "+title);
+			
+			// CREATE NEW ROOM
+			memberService.makeRoom(uid, title, "password");
+			
+			// get new room id
+			int room_id = memberService.getNewRoomID(uid);
+			String msg = "새로운 방 (room ID : "+room_id+")이 생성되었습니다.";
+			String url = "../room/"+room_id+"/main";
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
+			System.out.println("return alert");
+			return "alert";
+		}
+		model.addAttribute("msg", "세션이 만료되어 설정 변경에 실패하였습니다.");
+		model.addAttribute("url", "../login");
+		System.out.println("return alert");
+		return "alert";
+		
+	}
+	
 	
 	@RequestMapping(value= {"/main/setting","/setting.do"})
 	public ModelAndView settingView(ModelAndView mv, HttpSession session) throws Exception{
@@ -77,7 +108,7 @@ public class HomeController {
 	
 	@RequestMapping(value = "/main/settingAction", method = { RequestMethod.GET, RequestMethod.POST })
 	public String settingAction(HttpSession session, Model model, @RequestParam("font")int font)throws IOException {
-		if(session.getAttribute("session_validity") == "true") {
+		if((Boolean) session.getAttribute("session_validity")) {
 			System.out.println("font : " + font);
 			System.out.println("여기는 settingAction");
 			Integer uid = (Integer) session.getAttribute("uid");
@@ -92,14 +123,12 @@ public class HomeController {
 		model.addAttribute("url", "../login");
 		System.out.println("return alert");
 		return "alert";
-		
 	}
 	
 	
 	@RequestMapping(value= {"/main/private","/private.do"})
 	public ModelAndView privateView(ModelAndView mv) throws Exception{
 		mv.setViewName("/main/private");//타일즈 view => 일반 view : 이부분 지우면 일반 레이아웃 나옴.
-//		mv.addObject("setHeader", "타일즈테스트: value : /main/home");
 		return mv;
 	}
 	
