@@ -112,7 +112,7 @@ public class LoginController {
 		System.out.println(naver_name);
 		
 		//4.파싱 닉네임 세션으로 저장
-//		session.setAttribute("naver_id",naver_id); //세션 생성
+//		session.setAttribute("uid",naver_id); //세션 생성
 		session.setAttribute("nickname",naver_nickname); //세션 생성
 		session.setAttribute("age",naver_age); //세션 생성
 		session.setAttribute("gender",naver_gender); //세션 생성

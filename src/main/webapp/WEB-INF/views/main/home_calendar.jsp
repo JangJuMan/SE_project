@@ -143,7 +143,6 @@
 			<div class="navigation">
 				<a class="before_after_year calendar-btn" href="home.do?year=${today_info.search_year-1}&month=${today_info.search_month-1}">
 					<i class="fas fa-angle-double-left"></i>
-					<!-- <p>&lt;&lt;</p> -->
 				<!-- 이전해 -->
 				</a> 
 				<a class="before_after_month calendar-btn" href="home.do?year=${today_info.before_year}&month=${today_info.before_month}">

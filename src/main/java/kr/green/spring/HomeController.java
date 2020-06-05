@@ -1,5 +1,6 @@
 package kr.green.spring;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.spring.dto.DateData;
@@ -45,8 +47,20 @@ public class HomeController {
 	@RequestMapping(value= {"/main/home","/home.do"})
 	public ModelAndView openTilesView(ModelAndView mv, Model model, HttpServletRequest request, DateData dateData, HttpSession session) throws Exception{
 		mv.setViewName("/main/home");//타일즈 view => 일반 view
-//		mv.addObject("setHeader", "타일즈테스트: value : /main/home");
-		System.out.println("GO MAIN >>> " + session.getAttribute("user_name"));
+		
+		if(session.getAttribute("session_validity") == "true") {
+			// 로그인 시 이메일 계정이 없다면 생성한다.
+			String email = (String)session.getAttribute("email");
+			String name = (String)session.getAttribute("user_name");
+			System.out.println("email: "+email+"\nname: "+name);
+			memberService.insertNewUser(email, name);
+			
+			// 최초 회원가입시 설정 폰트를 14pt로 설정한다.
+			int uid = memberService.getUidbyEmail(email);
+			session.setAttribute("uid", uid);
+			System.out.println("setting > uid : " + uid);
+			memberService.insertAdditionalNewUser(uid);
+		}
 		
 		// 달력 : 달력쓰고 싶은 페이지에서 이렇게 선언 한다음,
 		// main/home.jsp 에서 jsp-include한 것처럼 사용하면 됨.
@@ -55,11 +69,32 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value= {"/main/setting","/setting.do"})
-	public ModelAndView settingView(ModelAndView mv) throws Exception{
+	public ModelAndView settingView(ModelAndView mv, HttpSession session) throws Exception{
+		 
 		mv.setViewName("/main/setting");//타일즈 view => 일반 view
-//		mv.addObject("setHeader", "타일즈테스트: value : /main/home");
 		return mv;
 	}
+	
+	@RequestMapping(value = "/main/settingAction", method = { RequestMethod.GET, RequestMethod.POST })
+	public String settingAction(HttpSession session, Model model, @RequestParam("font")int font)throws IOException {
+		if(session.getAttribute("session_validity") == "true") {
+			System.out.println("font : " + font);
+			System.out.println("여기는 settingAction");
+			Integer uid = (Integer) session.getAttribute("uid");
+			System.out.println(">> uid >> : "+uid);
+			memberService.insertSetting(uid, font);			
+			model.addAttribute("msg", "설정이 변경되었습니다.");
+			model.addAttribute("url", "home");
+			System.out.println("return alert");
+			return "alert";
+		}
+		model.addAttribute("msg", "세션이 만료되어 설정 변경에 실패하였습니다.");
+		model.addAttribute("url", "../login");
+		System.out.println("return alert");
+		return "alert";
+		
+	}
+	
 	
 	@RequestMapping(value= {"/main/private","/private.do"})
 	public ModelAndView privateView(ModelAndView mv) throws Exception{

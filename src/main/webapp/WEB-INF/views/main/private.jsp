@@ -73,8 +73,8 @@
 	</style>
 </head>
 <body>
-<div class="private-container">
-		<h1 class="private-title">개인정보 변경</h1>
+	<div class="private-container">
+		<h1 class="private-title">개인정보 조회</h1>
 		<div class="private-div">
 			<label for="font-size">이름 : </label>
 			<input class="private-text-input" type="text" value="${user_name}" readonly>
@@ -96,7 +96,7 @@
 			<input class="private-text-input" type="text" value="${gender}">
 		</div>
 		<div class="private-submit-div">
-			<input type="submit" class="private-submit-btn" value="개인정보 변경하기">
+			<!-- <input type="submit" class="private-submit-btn" value="개인정보 변경하기"> -->
 			<input type="button" class="private-cancel-btn" value="돌아가기" onClick="location.href='home'">
 		</div>
 	</div>

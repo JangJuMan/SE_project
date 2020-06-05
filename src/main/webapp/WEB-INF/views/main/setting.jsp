@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,25 +72,27 @@
 	</style>
 </head>
 <body>
-	<div class="setting-container">
-		<h1 class="setting-title">설정 페이지</h1>
-		<div class="setting-div">
-			<label for="font-size">폰트 사이즈</label>
-			<select name="font" id="font-select">
-				<option value="14px">14px</option>
-				<option value="16">16px</option>
-				<option value="18">18px</option>
-				<option value="20">20px</option>
-			</select>
+	<form action="settingAction" method="post">
+		<div class="setting-container">
+			<h1 class="setting-title">설정 페이지</h1>
+			<div class="setting-div">
+				<label for="font-size">폰트 사이즈</label>
+				<select name="font" id="font-select">
+					<option value="14">14px</option>
+					<option value="16">16px</option>
+					<option value="18">18px</option>
+					<option value="20">20px</option>
+				</select>
+			</div>
+			<!-- <div class="setting-div">
+				<label for="notification">알림설정</label>
+				<input type="checkbox" name="notification">
+			</div> -->
+			<div class="submit-div">
+				<input type="submit" class="submit-btn" value="설정 변경하기">
+				<input type="button" class="cancel-btn" value="돌아가기" onClick="location.href='home'">
+			</div>
 		</div>
-		<div class="setting-div">
-			<label for="notification">알림설정</label>
-			<input type="checkbox" name="notification">
-		</div>
-		<div class="submit-div">
-			<input type="submit" class="submit-btn" value="설정 변경하기">
-			<input type="button" class="cancel-btn" value="돌아가기" onClick="location.href='home'">
-		</div>
-	</div>
+	</form>
 </body>
 </html>

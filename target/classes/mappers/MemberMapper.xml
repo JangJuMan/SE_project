@@ -3,7 +3,26 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.green.spring.dao.MemberDAO">
-  <select id="getEmail" resultType="String">
-    select email from member where id = #{id}
+  <select id="getEmailbyID" resultType="String">
+    <!-- select email from member where id = #{id} -->
+    SELECT email FROM user WHERE uid = #{id}
   </select>
+  
+  <insert id="insertNewUser">
+  	<!-- INSERT #{email}, #{name} TO user -->
+  	INSERT INTO user (email, name) SELECT #{email}, #{name} FROM dual WHERE NOT EXISTS( SELECT * FROM user WHERE email = #{email});
+  </insert>
+  
+  <insert id="insertAdditionalNewUser">
+  	INSERT INTO setting (uid, fontSize) SELECT #{uid}, 14 FROM dual WHERE NOT EXISTS( SELECT * FROM setting WHERE uid = #{uid});	
+  </insert>
+  
+  <select id="getUidbyEmail" resultType="int">
+  	<!-- SELECT uid FROM user WHERE email=#{email} -->
+  	SELECT uid FROM user WHERE email=#{email};
+  </select>
+  
+  <insert id="insertSetting">
+  	UPDATE setting SET fontSize = #{font} WHERE uid = #{uid};
+  </insert>
 </mapper>

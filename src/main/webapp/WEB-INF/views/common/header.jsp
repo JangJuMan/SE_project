@@ -78,6 +78,7 @@
 	</style>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/common/session_test.jsp"></jsp:include>
 	<div class="header">
 		<div class="left-header">
 			<a onClick="location.href='http://localhost:8080/spring/main/home'"><i class="fas fa-home go-home"></i></a> 
