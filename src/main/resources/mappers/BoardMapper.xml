@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.green.spring.dao.BoardDAO">
+  <select id="getBoard" resultType="HashMap">
+    select * from Board where room_id = #{room_id} order by board_id DESC
+  </select>
+  <select id="deleteBoard">
+    delete from Board where board_id = #{board_id}
+  </select>
+  <select id="addBoard">
+  	INSERT INTO Board (room_id, uid, title, content, date) VALUES (#{room_id}, #{uid}, #{title}, #{content}, #{date});
+  </select>
+</mapper>

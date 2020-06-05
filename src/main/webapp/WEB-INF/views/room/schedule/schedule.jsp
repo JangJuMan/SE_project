@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <head>
 	<meta charset="utf-8">
 	<title>HTML</title>
@@ -91,11 +92,32 @@
 			  background-color: #ddd;
 			  border-radius: 5px;
 			}
+			
+			.button-container {
+			  float: right;
+			}
+				button {
+				  background-color: #4CAF50;
+				  border: none;
+				  color: white;
+				  padding: 8px 16px;
+				  text-align: center;
+				  text-decoration: none;
+				  display: inline-block;
+				  font-size: 16px;
+				  margin: 4px 2px;
+				  transition-duration: 0.4s;
+				  cursor: pointer;
+				  border-radius: 2px;
+				}
+				
+				button:hover {
+				  background-color: white;
+				  color: black;
+				  border: 1px solid #4CAF50;
+				}
 	</style>
 </head>
-
-<P> 방번호는 ${roomNum} 입니다. </P>
-
 <div class="container">
 	
 	<div class="left-container">
@@ -135,86 +157,20 @@
 			        </tr>
 				</thead>
 				<tbody>
+					<c:forEach var="i" begin="0" end="9">
 					<tr>
-						<td>10</td>
-						<td>아키텍처 디자인</td>
-						<td>2020.05.14</td>
-						<td>2020.05.30</td>
-						<td><select></select></td>
-						<td><input type="checkbox"></td>
+						<td>${i+1}</td>
+						<td>${schedule[i].title}</td>
+						<td>${schedule[i].startDate}</td>
+						<td>${schedule[i].endDate}</td>
+						<td>${schedule[i].member}</td>
+						<td>
+						<c:if test="${i < fn:length(schedule)}">
+						<input id="${schedule[i].task_id}" type="checkbox">
+						</c:if>
+						</td>
 					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 			<div class="pagination">
@@ -222,7 +178,18 @@
 				<a class="page-item active">1</a>
 				<a id="next" class="page-item">Next</a>
 			</div>
+			<div class="button-container">
+				<button onclick="location.href='scheduleAdd'">생성</button>
+				<button onclick="scheduleDelete();">삭제</button>
+			</div>
 		</div>
 
 	</div>
 </div>
+<script>
+function scheduleDelete(){
+    $("input:checked").each(function(){
+    	location.href='scheduleDelete?task_id=' + this.id;
+    });
+}
+</script>

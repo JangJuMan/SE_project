@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.green.spring.dao.ScheduleDAO">
+  <select id="getSchedule" resultType="HashMap">
+    select * from Task where room_id = #{room_id} order by task_id DESC
+  </select>
+  <select id="deleteSchedule">
+    delete from Task where task_id = #{task_id}
+  </select>
+  <select id="addSchedule">
+    INSERT INTO Task (room_id, startDate, endDate, title, member) VALUES (#{room_id}, #{startDate}, #{endDate}, #{title}, 'members');
+  </select>
+</mapper>

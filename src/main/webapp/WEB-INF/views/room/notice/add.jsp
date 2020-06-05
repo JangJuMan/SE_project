@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <head>
 	<meta charset="utf-8">
 	<title>HTML</title>
@@ -12,6 +13,7 @@
 	table {
 		width: 90%;
 		margin: auto;
+		margin-bottom: 0.5em;
 		text-align: center;
 	}
 	th {
@@ -19,6 +21,9 @@
 	}
 	table, th, td {
 		border: 1px solid #bcbcbc;
+	}
+	textarea {
+  		resize: none;
 	}
 .container{
   float: left;
@@ -52,54 +57,84 @@
       float: left;
       min-height: 70%;
     }
-        .calendar-area{
+        .notice-area{
           border: 1px solid #bbb;
           border-radius: 10px;
           margin-bottom: 1em;
           padding: 1em;
+          text-align: center;
         }
-        .calendar-title{
+        .notice-title{
           border-bottom: 1px solid #bbb;
           padding: 0.5em;
           margin-bottom: 0.5em;
           text-align: center;
         }
-	        .calendar-table td{
-	          height: 80px;
-	        }
+			.button-container {
+			  float: right;
+			}
+				button {
+				  background-color: #4CAF50;
+				  border: none;
+				  color: white;
+				  padding: 8px 16px;
+				  text-align: center;
+				  text-decoration: none;
+				  display: inline-block;
+				  font-size: 16px;
+				  margin: 4px 2px;
+				  transition-duration: 0.4s;
+				  cursor: pointer;
+				  border-radius: 2px;
+				}
+				
+				button:hover {
+				  background-color: white;
+				  color: black;
+				  border: 1px solid #4CAF50;
+				}
 	</style>
 </head>
-
-<P> 방번호는 ${roomNum} 입니다. </P>
-
 <div class="container">
-	
 	<div class="left-container">
 		<h2 onclick="location.href='main'">룸 메뉴</h2>
 		<div class="menu-container">
 			<div>
-				<h3>일정</h3>
-				<h4 class="specific-menu" onclick="location.href='calendar'">캘린더</h4>
-				<h4 class="specific-menu" onclick="location.href='schedule'">일정 관리</h4>
+				<h3 onClick="location.href='calendar'">일정</h3>
 			</div>
 			<div>
 				<h3 onClick="location.href='notice'">게시판</h3>
+				<h4 class="specific-menu" onClick="location.href='notice'">게시글</h4>
 			</div>
 			<div>
 				<h3 onClick="location.href='invite'">관리</h3>
 			</div>
 			<div>
-				<h3>설정</h3>
+				<h3 onClick="location.href='setting'">설정</h3>
 			</div>
 		</div>
 	</div>
 	
 	<div class="right-container">
-		<h1><strong> 일정 </strong></h1>
-		<div class="calendar-area">
-			<h2 class="calendar-title"><strong> 2020.05 </strong></h2>
-			
-			<jsp:include page="/WEB-INF/views/room/room_calendar.jsp"></jsp:include>
+		<h1><strong> 게시판 </strong></h1>
+		<div class="notice-area">
+			<h2 class="notice-title"><strong> 게시글 작성 </strong></h2>
+			<form action="noticeAddAction" method="get">
+			<label for="title">제목:</label>
+			<input type="text" id="title" name="title" required>
+			<br>
+			<textarea id="content" name="content" rows="20" cols="100" placeholder="게시글 내용을 작성해주세요." required></textarea>
+			<input type="hidden" id="date" name="date" pattern="\d{4}-\d{2}-\d{2}" required>
+			<button type="submit">추가</button>
+			</form>
 		</div>
 	</div>
 </div>
+<script>
+	Date.prototype.toDateInputValue = (function() {
+	    var local = new Date(this);
+	    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+	    return local.toJSON().slice(0,10);
+	});
+	document.getElementById('date').value = new Date().toDateInputValue();
+</script>

@@ -102,9 +102,6 @@
 
 	</style>
 </head>
-
-<P> 방번호는 ${roomNum} 입니다. </P>
-
 <div class="container">
 	
 	<div class="left-container">

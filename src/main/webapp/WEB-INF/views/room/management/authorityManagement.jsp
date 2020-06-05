@@ -53,22 +53,22 @@
       float: left;
       min-height: 70%;
     }
-        .notice-area{
+        .authority-area{
           border: 1px solid #bbb;
           border-radius: 10px;
           margin-bottom: 1em;
           padding: 1em;
           text-align: center;
         }
-        .notice-title{
-          border-bottom: 1px solid #bbb;
-          padding: 0.5em;
-          margin-bottom: 0.5em;
-          text-align: center;
-        }
-	        .notice-table td{
-	          height: 20px;
+	        .authority-title{
+	          border-bottom: 1px solid #bbb;
+	          padding: 0.5em;
+	          margin-bottom: 0.5em;
+	          text-align: center;
 	        }
+	        .authority-table td{
+	          height: 20px;
+	        }        
 			.pagination {
 			  display: inline-block;
 			  margin: auto;
@@ -91,12 +91,31 @@
 			  background-color: #ddd;
 			  border-radius: 5px;
 			}
-
+			.button-container {
+			  float: right;
+			}
+				button {
+				  background-color: #4CAF50;
+				  border: none;
+				  color: white;
+				  padding: 8px 16px;
+				  text-align: center;
+				  text-decoration: none;
+				  display: inline-block;
+				  font-size: 16px;
+				  margin: 4px 2px;
+				  transition-duration: 0.4s;
+				  cursor: pointer;
+				  border-radius: 2px;
+				}
+				
+				button:hover {
+				  background-color: white;
+				  color: black;
+				  border: 1px solid #4CAF50;
+				}
 	</style>
 </head>
-
-<P> 방번호는 ${roomNum} 입니다. </P>
-
 <div class="container">
 	<div class="left-container">
 		<h2 onclick="location.href='main'">룸 메뉴</h2>
@@ -106,11 +125,11 @@
 			</div>
 			<div>
 				<h3 onClick="location.href='notice'">게시판</h3>
-				<h4 class="specific-menu" onClick="location.href='notice'">공지사항</h4>
-				<h4 class="specific-menu" onClick="location.href='noticeManagement'">게시판 관리</h4>
 			</div>
 			<div>
 				<h3 onClick="location.href='invite'">관리</h3>
+				<h4 class="specific-menu" onClick="location.href='invite'">초대하기</h4>
+				<h4 class="specific-menu" onClick="location.href='authorityManagement'">권한 관리</h4>
 			</div>
 			<div>
 				<h3 onClick="location.href='setting'">설정</h3>
@@ -119,50 +138,78 @@
 	</div>
 	
 	<div class="right-container">
-		<h1><strong> 게시판 </strong></h1>
-		<div class="notice-area">
-			<h2 class="notice-title"><strong> 게시판 관리 </strong></h2>
+		<h1><strong> 관리 </strong></h1>
+		<div class="authority-area">
+			<h2 class="authority-title"><strong> 권한 관리 </strong></h2>
 			
-			<table class="notice-table">
+			<table class="authority-table">
 				<thead>
 					<tr>
 						<th>No.</th>
-						<th>제목</th>
-						<th>선택</th>
+						<th>이름</th>
+						<th>아이디</th>
+						<th>역할</th>
+						<th>권한1</th>
+						<th>권한2</th>
+						<th>권한3</th>
 			        </tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td>5</td>
-						<td>게시판5</td>
+						<td>1</td>
+						<td>김철수</td>
+						<td>Kim333</td>
+						<td>리더</td>
+						<td><input type="checkbox"></td>
+						<td><input type="checkbox"></td>
 						<td><input type="checkbox"></td>
 					</tr>
 					<tr>
 						<td></td>
 						<td></td>
 						<td></td>
-					</tr>
-					<tr>
 						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
 						<td></td>
 						<td></td>
 						<td></td>
 					</tr>
 					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
 						<td></td>
 						<td></td>
 						<td></td>
 					</tr>
 				</tbody>
 			</table>
+			
 			<div class="pagination">
 				<a id="prev" class="page-item">Previous</a>
 				<a class="page-item active">1</a>
 				<a id="next" class="page-item">Next</a>
+			</div>
+			<div class="button-container">
+				<button>저장</button>
 			</div>
 		</div>
 

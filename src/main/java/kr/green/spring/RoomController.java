@@ -22,7 +22,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.spring.dto.DateData;
-import kr.green.spring.service.MemberService;
+import kr.green.spring.service.CommentService;
+import kr.green.spring.service.BoardService;
+import kr.green.spring.service.ScheduleService;
 
 /**
  * Handles requests for the application home page.
@@ -31,10 +33,13 @@ import kr.green.spring.service.MemberService;
 public class RoomController {
 	
 	@Autowired
-	MemberService memberService;
+	ScheduleService ScheduleService;
+	
+	@Autowired
+	BoardService BoardService;
 	
 	@RequestMapping(value= {"/room/{roomNum}/main"})
-	public ModelAndView roomMainView(ModelAndView mv, Model model, HttpServletRequest request, DateData dateData, @PathVariable("roomNum") String roomNum) throws Exception{
+	public ModelAndView roomMainView(ModelAndView mv, Model model, HttpServletRequest request, DateData dateData, @PathVariable("roomNum") int roomNum) throws Exception{
 		mv.setViewName("/room/main");//타일즈 view => 일반 view
 		mv.addObject("roomNum", roomNum);
 		calendarMiniView(mv, model, request, dateData);
@@ -42,50 +47,87 @@ public class RoomController {
 	}
 	
 	@RequestMapping(value= {"/room/{roomNum}/calendar"})
-	public ModelAndView roomCalendarView(ModelAndView mv, Model model, HttpServletRequest request, DateData dateData, @PathVariable("roomNum") String roomNum) throws Exception{
-		mv.setViewName("/room/roomCalendar");//타일즈 view => 일반 view
+	public ModelAndView roomCalendarView(ModelAndView mv, Model model, HttpServletRequest request, DateData dateData, @PathVariable("roomNum") int roomNum) throws Exception{
+		mv.setViewName("/room/schedule/roomCalendar");//타일즈 view => 일반 view
 		mv.addObject("roomNum", roomNum);
 		calendarView(mv, model, request, dateData);
 		return mv;
 	}
 	
 	@RequestMapping(value= {"/room/{roomNum}/schedule"})
-	public ModelAndView roomScheduleView(ModelAndView mv, @PathVariable("roomNum") String roomNum) throws Exception{
-		mv.setViewName("/room/schedule");//타일즈 view => 일반 view
+	public ModelAndView roomScheduleView(ModelAndView mv, @PathVariable("roomNum") int roomNum) throws Exception{
+		mv.setViewName("/room/schedule/schedule");//타일즈 view => 일반 view
 		mv.addObject("roomNum", roomNum);
+		mv.addObject("schedule", ScheduleService.getSchedule(roomNum));
+		return mv;
+	}
+	
+	@RequestMapping(value= {"/room/{roomNum}/scheduleAdd"})
+	public ModelAndView roomScheduleAddView(ModelAndView mv, @PathVariable("roomNum") int roomNum) throws Exception{
+		mv.setViewName("/room/schedule/add");//타일즈 view => 일반 view
+		mv.addObject("roomNum", roomNum);
+		return mv;
+	}
+	
+	@RequestMapping(value= "/room/{roomNum}/scheduleAddAction", method = RequestMethod.GET)
+	public ModelAndView roomScheduleAddAction(ModelAndView mv, @PathVariable("roomNum") int roomNum, String startDate, String endDate, String title) throws Exception{
+		ScheduleService.addSchedule(roomNum, startDate, endDate, title);
+		mv.setViewName("redirect:/room/" + roomNum + "/schedule");//타일즈 view => 일반 view
+		return mv;
+	}
+	
+	@RequestMapping(value= "/room/{roomNum}/scheduleDelete", method = RequestMethod.GET)
+	public ModelAndView roomScheduleDelete(ModelAndView mv, @PathVariable("roomNum") int roomNum, int task_id) throws Exception{
+		ScheduleService.deleteSchedule(task_id);
+		mv.setViewName("redirect:/room/" + roomNum + "/schedule");//타일즈 view => 일반 view
 		return mv;
 	}
 	
 	@RequestMapping(value= {"/room/{roomNum}/notice"})
-	public ModelAndView roomNoticeView(ModelAndView mv, @PathVariable("roomNum") String roomNum) throws Exception{
-		mv.setViewName("/room/notice");//타일즈 view => 일반 view
+	public ModelAndView roomNoticeView(ModelAndView mv, @PathVariable("roomNum") int roomNum) throws Exception{
+		mv.setViewName("/room/notice/notice");//타일즈 view => 일반 view
+		mv.addObject("roomNum", roomNum);
+		mv.addObject("board", BoardService.getBoard(roomNum));
+		return mv;
+	}
+	
+	@RequestMapping(value= {"/room/{roomNum}/noticeAdd"})
+	public ModelAndView roomNoticeAddView(ModelAndView mv, @PathVariable("roomNum") int roomNum) throws Exception{
+		mv.setViewName("/room/notice/add");//타일즈 view => 일반 view
 		mv.addObject("roomNum", roomNum);
 		return mv;
 	}
 	
-	@RequestMapping(value= {"/room/{roomNum}/noticeManagement"})
-	public ModelAndView roomNoticeManagementView(ModelAndView mv, @PathVariable("roomNum") String roomNum) throws Exception{
-		mv.setViewName("/room/noticeManagement");//타일즈 view => 일반 view
-		mv.addObject("roomNum", roomNum);
+	@RequestMapping(value= "/room/{roomNum}/noticeAddAction", method = RequestMethod.GET)
+	public ModelAndView roomNoticeAddAction(ModelAndView mv, @PathVariable("roomNum") int roomNum, String title, String content, String date) throws Exception{
+		BoardService.addBoard(roomNum, "21500602", title, content, date);
+		mv.setViewName("redirect:/room/" + roomNum + "/notice");//타일즈 view => 일반 view
+		return mv;
+	}
+	
+	@RequestMapping(value= "/room/{roomNum}/noticeDelete", method = RequestMethod.GET)
+	public ModelAndView roomNoticeDelete(ModelAndView mv, @PathVariable("roomNum") int roomNum, int board_id) throws Exception{
+		BoardService.deleteBoard(board_id);
+		mv.setViewName("redirect:/room/" + roomNum + "/notice");//타일즈 view => 일반 view
 		return mv;
 	}
 	
 	@RequestMapping(value= {"/room/{roomNum}/invite"})
-	public ModelAndView roomInviteView(ModelAndView mv, @PathVariable("roomNum") String roomNum) throws Exception{
-		mv.setViewName("/room/invite");//타일즈 view => 일반 view
+	public ModelAndView roomInviteView(ModelAndView mv, @PathVariable("roomNum") int roomNum) throws Exception{
+		mv.setViewName("/room/management/invite");//타일즈 view => 일반 view
 		mv.addObject("roomNum", roomNum);
 		return mv;
 	}
 	
 	@RequestMapping(value= {"/room/{roomNum}/authorityManagement"})
-	public ModelAndView roomAuthorityManagementView(ModelAndView mv, @PathVariable("roomNum") String roomNum) throws Exception{
-		mv.setViewName("/room/authorityManagement");//타일즈 view => 일반 view
+	public ModelAndView roomAuthorityManagementView(ModelAndView mv, @PathVariable("roomNum") int roomNum) throws Exception{
+		mv.setViewName("/room/management/authorityManagement");//타일즈 view => 일반 view
 		mv.addObject("roomNum", roomNum);
 		return mv;
 	}
 	
 	@RequestMapping(value= {"/room/{roomNum}/setting"})
-	public ModelAndView roomSettingView(ModelAndView mv, @PathVariable("roomNum") String roomNum) throws Exception{
+	public ModelAndView roomSettingView(ModelAndView mv, @PathVariable("roomNum") int roomNum) throws Exception{
 		mv.setViewName("/room/setting");//타일즈 view => 일반 view
 		mv.addObject("roomNum", roomNum);
 		return mv;

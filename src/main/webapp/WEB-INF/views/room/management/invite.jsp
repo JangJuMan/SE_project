@@ -91,12 +91,32 @@
 			  background-color: #ddd;
 			  border-radius: 5px;
 			}
-
+			.button-container {
+			  float: right;
+			}
+				button {
+				  background-color: #4CAF50;
+				  border: none;
+				  color: white;
+				  padding: 8px 16px;
+				  text-align: center;
+				  text-decoration: none;
+				  display: inline-block;
+				  font-size: 16px;
+				  margin: 4px 2px;
+				  transition-duration: 0.4s;
+				  cursor: pointer;
+				  border-radius: 2px;
+				}
+				
+				button:hover {
+				  background-color: white;
+				  color: black;
+				  border: 1px solid #4CAF50;
+				}
+				
 	</style>
 </head>
-
-<P> 방번호는 ${roomNum} 입니다. </P>
-
 <div class="container">
 	<div class="left-container">
 		<h2 onclick="location.href='main'">룸 메뉴</h2>
@@ -169,6 +189,9 @@
 				<a id="prev" class="page-item">Previous</a>
 				<a class="page-item active">1</a>
 				<a id="next" class="page-item">Next</a>
+			</div>
+			<div class="button-container">
+				<button>초대하기</button>
 			</div>
 		</div>
 
