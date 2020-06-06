@@ -115,25 +115,28 @@
 				  color: black;
 				  border: 1px solid #4CAF50;
 				}
+				.room_menu{
+					cursor: pointer;
+				}
 	</style>
 </head>
 
 <div class="container">
 	<div class="left-container">
-		<h2 onclick="location.href='main'">룸 메뉴</h2>
+		<h2 class="room_menu" onclick="location.href='main'">룸 메뉴</h2>
 		<div class="menu-container">
 			<div>
-				<h3 onClick="location.href='calendar'">일정</h3>
+				<h3 class="room_menu" onClick="location.href='calendar'">일정</h3>
 			</div>
 			<div>
-				<h3 onClick="location.href='notice'">게시판</h3>
-				<h4 class="specific-menu" onClick="location.href='notice'">게시글</h4>
+				<h3 class="room_menu" onClick="location.href='notice'">게시판</h3>
+				<h4 class="specific-menu room_n" onClick="location.href='notice'">게시글</h4>
 			</div>
 			<div>
-				<h3 onClick="location.href='invite'">관리</h3>
+				<h3 class="room_menu" onClick="location.href='invite'">관리</h3>
 			</div>
 			<div>
-				<h3 onClick="location.href='setting'">설정</h3>
+				<h3 class="room_menu" onClick="location.href='setting'">설정</h3>
 			</div>
 		</div>
 	</div>
@@ -158,7 +161,7 @@
 					<tr>
 						<td>${i+1}</td>
 						<td>${board[i].uid}</td>
-						<td onclick="location.href='noticeSpecific?board_id=${board[i].board_id}'">${board[i].title}</td>
+						<td class="room_menu" onclick="location.href='noticeSpecific?board_id=${board[i].board_id}'">${board[i].title}</td>
 						<td>${board[i].date}</td>
 						<td>
 						<c:if test="${i < fn:length(board)}">

@@ -93,24 +93,32 @@
 				  color: black;
 				  border: 1px solid #4CAF50;
 				}
+				.room_menu{
+					cursor: pointer;
+				}
+				.txt-input{
+					padding: 0.3em;
+					margin-bottom: 1em;
+					width: 50%;
+				}
 	</style>
 </head>
 <div class="container">
 	<div class="left-container">
-		<h2 onclick="location.href='main'">룸 메뉴</h2>
+		<h2 class="room_menu" onclick="location.href='main'">룸 메뉴</h2>
 		<div class="menu-container">
 			<div>
-				<h3 onClick="location.href='calendar'">일정</h3>
+				<h3 class="room_menu" onClick="location.href='calendar'">일정</h3>
 			</div>
 			<div>
-				<h3 onClick="location.href='notice'">게시판</h3>
-				<h4 class="specific-menu" onClick="location.href='notice'">게시글</h4>
+				<h3 class="room_menu" onClick="location.href='notice'">게시판</h3>
+				<h4 class="specific-menu room_menu" onClick="location.href='notice'">게시글</h4>
 			</div>
 			<div>
-				<h3 onClick="location.href='invite'">관리</h3>
+				<h3 class="room_menu" onClick="location.href='invite'">관리</h3>
 			</div>
 			<div>
-				<h3 onClick="location.href='setting'">설정</h3>
+				<h3 class="room_menu" onClick="location.href='setting'">설정</h3>
 			</div>
 		</div>
 	</div>
@@ -121,11 +129,11 @@
 			<h2 class="notice-title"><strong> 게시글 작성 </strong></h2>
 			<form action="noticeAddAction" method="get">
 			<label for="title">제목:</label>
-			<input type="text" id="title" name="title" required>
+			<input class="txt-input" type="text" id="title" name="title" required>
 			<br>
 			<textarea id="content" name="content" rows="20" cols="100" placeholder="게시글 내용을 작성해주세요." required></textarea>
 			<input type="hidden" id="date" name="date" pattern="\d{4}-\d{2}-\d{2}" required>
-			<button type="submit">추가</button>
+			<br><button type="submit">추가</button>
 			</form>
 		</div>
 	</div>

@@ -96,24 +96,38 @@
 			.left-input {
 			  float: left;
 			}
+			.room_menu{
+				cursor: pointer;
+			}
+			.txt-title{
+					padding: 0.3em;
+					margin-bottom: 1em;
+					width: 50%;
+				}
+				.timelog{
+					padding: 0.3em;
+				}
+				.comment-z{
+					margin: 0.5em;
+				}
 	</style>
 </head>
 <div class="container">
 	<div class="left-container">
-		<h2 onclick="location.href='main'">룸 메뉴</h2>
+		<h2 class="room_menu" onclick="location.href='main'">룸 메뉴</h2>
 		<div class="menu-container">
 			<div>
-				<h3 onClick="location.href='calendar'">일정</h3>
+				<h3 class="room_menu" onClick="location.href='calendar'">일정</h3>
 			</div>
 			<div>
-				<h3 onClick="location.href='notice'">게시판</h3>
-				<h4 class="specific-menu" onClick="location.href='notice'">게시글</h4>
+				<h3 class="room_menu" onClick="location.href='notice'">게시판</h3>
+				<h4 class="specific-menu room_menu" onClick="location.href='notice'">게시글</h4>
 			</div>
 			<div>
-				<h3 onClick="location.href='invite'">관리</h3>
+				<h3 class="room_menu" onClick="location.href='invite'">관리</h3>
 			</div>
 			<div>
-				<h3 onClick="location.href='setting'">설정</h3>
+				<h3 class="room_menu" onClick="location.href='setting'">설정</h3>
 			</div>
 		</div>
 	</div>
@@ -123,21 +137,21 @@
 		<div class="notice-area">
 			<h2 class="notice-title"><strong> 게시글 보기 </strong></h2>
 			<label for="title">제목:</label>
-			<input type="text" id="title" name="title" value="${board[0].title}" readonly>
-			<label for="date1">업로드 시간</label>
+			<input class="txt-title" type="text" id="title" name="title" value="${board[0].title}" readonly>
+			<label class="timelog" for="date1">업로드 시간</label>
 			<input type="text" id="date1" name="date1" value="${board[0].date}" readonly>
 			<br>
 			<textarea id="content" name="content" rows="20" cols="100" readonly>${board[0].content}</textarea>
 
- 			<c:forEach var="i" begin="0" end="${fn:length(comment) - 1}">
+ 			<c:forEach var="i" begin="1" end="${fn:length(comment)}">
  				<div>
  				<br>
  				<label for="name">아이디:</label>
-				<input id="name" name="name" type="text" value="${comment[i].uid}" required>
+				<input class="comment-z" id="name" name="name" type="text" value="${comment[i-1].uid}" required>
 				<label for="date1">댓글 업로드시간:</label>
-				<input id="date1" name="date1" type="text" value="${comment[i].date}" required>
+				<input class="comment-z" id="date1" name="date1" type="text" value="${comment[i-1].date}" required>
 				<br>
-				<textarea rows="5" cols="100" required>${comment[i].content}</textarea>
+				<textarea rows="5" cols="100" required>${comment[i-1].content}</textarea>
 				<br>
 				<div>
 			</c:forEach>

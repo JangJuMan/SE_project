@@ -67,29 +67,37 @@
 	        .calendar-table td{
 	          height: 80px;
 	        }
+	        .room_menu{
+	        	cursor : pointer;
+	        }
+	        .room_title{
+	        	text-align: center;
+	        	padding: 0.5em;
+	        }
+	        
 	</style>
 </head>
 
-<P> 방번호는 ${roomNum} 입니다. </P>
+<h2 class="room_title"> 방번호는 ${roomNum} 입니다. </h2>
 
 <div class="container">
 	
 	<div class="left-container">
-		<h2 onclick="location.href='main'">룸 메뉴</h2>
+		<h2 class="room_menu" onclick="location.href='main'">룸 메뉴</h2>
 		<div class="menu-container">
 			<div>
 				<h3>일정</h3>
-				<h4 class="specific-menu" onclick="location.href='calendar'">캘린더</h4>
-				<h4 class="specific-menu" onclick="location.href='schedule'">일정 관리</h4>
+				<h4 class="specific-menu room_menu" onclick="location.href='calendar'">캘린더</h4>
+				<h4 class="specific-menu room_menu" onclick="location.href='schedule'">일정 관리</h4>
 			</div>
 			<div>
-				<h3 onClick="location.href='notice'">게시판</h3>
+				<h3 class="room_menu" onClick="location.href='notice'">게시판</h3>
 			</div>
 			<div>
-				<h3 onClick="location.href='invite'">관리</h3>
+				<h3 class="room_menu" onClick="location.href='invite'">관리</h3>
 			</div>
 			<div>
-				<h3>설정</h3>
+				<h3 class="room_menu" >설정</h3>
 			</div>
 		</div>
 	</div>
