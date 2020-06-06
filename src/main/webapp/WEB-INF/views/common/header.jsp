@@ -89,7 +89,7 @@
 		</div>
 		<div class="right-header">
 			<a onClick="location.href='http://localhost:8080/spring/main/setting'"><i class="fas fa-cog setting"></i></a>
-			<i class="far fa-bell alarm"></i>
+			<!-- <i class="far fa-bell alarm"></i> -->
 			<a onClick="location.href='http://localhost:8080/spring/main/private'"><i class="fas fa-user go-private"></i></a>
 		</div>
 	</div>

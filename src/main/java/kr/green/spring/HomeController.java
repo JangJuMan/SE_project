@@ -38,43 +38,48 @@ public class HomeController {
 	@RequestMapping(value= {"/main/home","/home.do"})
 	public ModelAndView openTilesView(ModelAndView mv, Model model, HttpServletRequest request, 
 			DateData dateData, HttpSession session) throws Exception{
+		System.out.println("here1");
 		mv.setViewName("/main/home");//타일즈 view => 일반 view
-		
-		if((Boolean) session.getAttribute("session_validity")) {
+		System.out.println("here2");
+		if((Boolean) session.getAttribute("session_validity") != null) {
+			System.out.println("here3");
 			// 로그인 시 이메일 계정이 없다면 생성한다.
 			String email = (String)session.getAttribute("email");
 			String name = (String)session.getAttribute("user_name");
 			System.out.println("email: "+email+"\nname: "+name);
 			memberService.insertNewUser(email, name);
 			
+			System.out.println("here4");
 			// 최초 회원가입시 설정 폰트를 14pt로 설정한다.
 			int uid = memberService.getUidbyEmail(email);
 			session.setAttribute("uid", uid);
 			System.out.println("setting > uid : " + uid);
 			memberService.insertAdditionalNewUser(uid);
 			
+			System.out.println("here5");
 			// room 조회하기 
 			mv.addObject("RoomList", memberService.getRoom(uid));
 			
 			System.out.println("before cnt");
 			
 			// room 개수 세기
-			int cnt = memberService.countAllbyID(uid, "room") - 1;
+			int cnt = memberService.countAllbyID(uid, "room");
 			System.out.println("cnt : "+cnt);
 			mv.addObject("room_count", cnt);
 			
 			System.out.println("after cnt");
 		}
-		
+		System.out.println("here7");
 		// 달력 : 달력쓰고 싶은 페이지에서 이렇게 선언 한다음,
 		// main/home.jsp 에서 jsp-include한 것처럼 사용하면 됨.
 		calendarView(mv, model, request, dateData);
+		System.out.println("here8");
 		return mv;
 	}
 	
 	@RequestMapping(value = "/main/makeRoom", method = { RequestMethod.GET, RequestMethod.POST })
 	public String makeRoom(HttpSession session, Model model, @RequestParam("title")String title)throws IOException {
-		if((Boolean) session.getAttribute("session_validity")) {
+		if((Boolean) session.getAttribute("session_validity") != null) {
 			System.out.println("여기는 makeRoom");
 			Integer uid = (Integer) session.getAttribute("uid");
 			System.out.println(">> uid >> : "+uid+"\ntitle : "+title);
@@ -101,14 +106,13 @@ public class HomeController {
 	
 	@RequestMapping(value= {"/main/setting","/setting.do"})
 	public ModelAndView settingView(ModelAndView mv, HttpSession session) throws Exception{
-		 
 		mv.setViewName("/main/setting");//타일즈 view => 일반 view
 		return mv;
 	}
 	
 	@RequestMapping(value = "/main/settingAction", method = { RequestMethod.GET, RequestMethod.POST })
 	public String settingAction(HttpSession session, Model model, @RequestParam("font")int font)throws IOException {
-		if((Boolean) session.getAttribute("session_validity")) {
+		if((Boolean) session.getAttribute("session_validity") != null) {
 			System.out.println("font : " + font);
 			System.out.println("여기는 settingAction");
 			Integer uid = (Integer) session.getAttribute("uid");

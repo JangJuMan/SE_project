@@ -25,6 +25,7 @@
       padding: 1%;
       float: left;
       width: 20%;
+      text-align: center;
     }
         .team-info{
           border: 1px solid #bbb;
@@ -32,13 +33,15 @@
           border-radius: 5px;
           margin: 1em 0.5em;
           background-color: #e1ffed;
+          text-align: left;
         }
         .team-name{
-          border: 1px solid red;
+          margin-top: 0;
+          margin-bottom: 0;
         }
         .team-task{
-          border: 1px solid blue;
           text-align: center;
+          margin-bottom: 0;
         }
     .right-container{
       margin: 1%;
@@ -100,6 +103,7 @@
 			  padding: 1em 2em;
             }
 			.index-add-team:hover{
+			  background-color: #add5f7;
 			  cursor: pointer;
 			}
 			
@@ -117,19 +121,21 @@
 	          width: 90%;
 			}
 			.create-team:hover{
+				background-color: #69ef9e;
 				cursor: pointer;
 			}
 	</style>
 </head>
 <body>
-	<form action="makeRoom" method="get" onsubmit="enterTitle()">
+	<form action="makeRoom" method="get" onsubmit="return enterTitle()">
 		<input name="title" type="hidden" value="" id="team_name">
 		<div class="container">
 			<div class="left-container">
 				<h2>팀 목록</h2>
-				<c:forEach var="i" begin="0" end="${room_count}">
+				<c:forEach var="i" begin="1" end="${room_count}">
 					<div class="team-info">
-						<h3 class="team-name">${RoomList[i].room_title}(${RoomList[i].room_id})</h3>
+						<h3 class="team-name">${RoomList[i-1].room_title} (id: ${RoomList[i-1].room_id})</h3>
+						<hr>
 						<p class="team-task">나에게 부여된 일 1</p>
 						<p class="team-task">나에게 부여된 일 2</p>
 					</div>
@@ -145,9 +151,9 @@
 				</div>
 				<div class="index-area">
 					<h2 class="index-title">${user_name} 님이 참여하고 있는 팀 목록입니다.</h2>
-					<c:forEach var="i" begin="0" end="${room_count}">
-						<div class="index-team" onClick="location.href='http://localhost:8080/spring/room/${RoomList[i].room_id}/main'">
-						<h3>${RoomList[i].room_title}(${RoomList[i].room_id})</h3>
+					<c:forEach var="i" begin="1" end="${room_count}">
+						<div class="index-team" onClick="location.href='http://localhost:8080/spring/room/${RoomList[i-1].room_id}/main'">
+						<h3>${RoomList[i-1].room_title} (id: ${RoomList[i-1].room_id})</h3>
 					</div>
 					</c:forEach>
 					<input class="index-add-team" type="submit" value="+ Create a Team"> 
@@ -160,7 +166,11 @@
 <script>
 function enterTitle(){
 	var input = prompt("방 제목을 입력해주세요", "New Room Title");
-	document.getElementById("team_name").value = input;
+	if(input != null){
+		document.getElementById("team_name").value = input;
+		return true;
+	}
+	return false;
 }
 </script>
 </html>
