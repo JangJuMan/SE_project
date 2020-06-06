@@ -9,7 +9,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -91,6 +91,22 @@ public class RoomController {
 		return mv;
 	}
 	
+	@RequestMapping(value= "/room/{roomNum}/noticeSpecific", method = RequestMethod.GET)
+	public ModelAndView roomNoticeSpecificView(ModelAndView mv, @PathVariable("roomNum") int roomNum, int board_id) throws Exception{
+		mv.setViewName("/room/notice/specific");//타일즈 view => 일반 view
+		mv.addObject("board_id", board_id);
+		mv.addObject("board", BoardService.getBoardSpecific(board_id));
+		mv.addObject("comment", BoardService.getComment(board_id));
+		return mv;
+	}
+	
+	@RequestMapping(value= "/room/{roomNum}/commentAdd", method = RequestMethod.GET)
+	public ModelAndView roomCommentAdd(ModelAndView mv, @PathVariable("roomNum") int roomNum, int board_id, String content, String date, HttpSession session) throws Exception{
+		BoardService.addComment(board_id, session.getAttribute("uid").toString(), content, date);
+		mv.setViewName("redirect:/room/" + roomNum + "/noticeSpecific?board_id=" + board_id);//타일즈 view => 일반 view
+		return mv;
+	}
+	
 	@RequestMapping(value= {"/room/{roomNum}/noticeAdd"})
 	public ModelAndView roomNoticeAddView(ModelAndView mv, @PathVariable("roomNum") int roomNum) throws Exception{
 		mv.setViewName("/room/notice/add");//타일즈 view => 일반 view
@@ -99,8 +115,8 @@ public class RoomController {
 	}
 	
 	@RequestMapping(value= "/room/{roomNum}/noticeAddAction", method = RequestMethod.GET)
-	public ModelAndView roomNoticeAddAction(ModelAndView mv, @PathVariable("roomNum") int roomNum, String title, String content, String date) throws Exception{
-		BoardService.addBoard(roomNum, "21500602", title, content, date);
+	public ModelAndView roomNoticeAddAction(ModelAndView mv, @PathVariable("roomNum") int roomNum, String title, String content, String date, HttpSession session) throws Exception{
+		BoardService.addBoard(roomNum, session.getAttribute("uid").toString(), title, content, date);
 		mv.setViewName("redirect:/room/" + roomNum + "/notice");//타일즈 view => 일반 view
 		return mv;
 	}

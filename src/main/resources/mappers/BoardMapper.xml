@@ -6,10 +6,19 @@
   <select id="getBoard" resultType="HashMap">
     select * from Board where room_id = #{room_id} order by board_id DESC
   </select>
+  <select id="getBoardSpecific" resultType="HashMap">
+    select * from Board where board_id = #{board_id}
+  </select>
+  <select id="getComment" resultType="HashMap">
+    select * from Comment where board_id = #{board_id}
+  </select>
   <select id="deleteBoard">
     delete from Board where board_id = #{board_id}
   </select>
   <select id="addBoard">
   	INSERT INTO Board (room_id, uid, title, content, date) VALUES (#{room_id}, #{uid}, #{title}, #{content}, #{date});
+  </select>
+  <select id="addComment">
+  	INSERT INTO Comment (board_id, uid, content, date) VALUES (#{board_id}, #{uid}, #{content}, #{date});
   </select>
 </mapper>

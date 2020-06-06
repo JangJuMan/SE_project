@@ -22,6 +22,9 @@
 	table, th, td {
 		border: 1px solid #bcbcbc;
 	}
+	textarea {
+  		resize: none;
+	}
 .container{
   float: left;
   width: 100%;
@@ -67,31 +70,6 @@
           margin-bottom: 0.5em;
           text-align: center;
         }
-	        .notice-table td{
-	          height: 20px;
-	        }
-			.pagination {
-			  display: inline-block;
-			  margin: auto;
-			}
-			
-			.pagination a {
-			  color: black;
-			  float: left;
-			  padding: 8px 16px;
-			  text-decoration: none;
-			}
-			
-			.pagination a.active {
-			  background-color: #4CAF50;
-			  color: white;
-			  border-radius: 5px;
-			}
-			
-			.pagination a:hover:not(.active) {
-			  background-color: #ddd;
-			  border-radius: 5px;
-			}
 			.button-container {
 			  float: right;
 			}
@@ -115,9 +93,11 @@
 				  color: black;
 				  border: 1px solid #4CAF50;
 				}
+			.left-input {
+			  float: left;
+			}
 	</style>
 </head>
-
 <div class="container">
 	<div class="left-container">
 		<h2 onclick="location.href='main'">룸 메뉴</h2>
@@ -141,52 +121,44 @@
 	<div class="right-container">
 		<h1><strong> 게시판 </strong></h1>
 		<div class="notice-area">
-			<h2 class="notice-title"><strong> 게시글 목록 </strong></h2>
+			<h2 class="notice-title"><strong> 게시글 보기 </strong></h2>
+			<label for="title">제목:</label>
+			<input type="text" id="title" name="title" value="${board[0].title}" readonly>
+			<label for="date1">업로드 시간</label>
+			<input type="text" id="date1" name="date1" value="${board[0].date}" readonly>
+			<br>
+			<textarea id="content" name="content" rows="20" cols="100" readonly>${board[0].content}</textarea>
+
+ 			<c:forEach var="i" begin="0" end="${fn:length(comment) - 1}">
+ 				<div>
+ 				<br>
+ 				<label for="name">아이디:</label>
+				<input id="name" name="name" type="text" value="${comment[i].uid}" required>
+				<label for="date1">댓글 업로드시간:</label>
+				<input id="date1" name="date1" type="text" value="${comment[i].date}" required>
+				<br>
+				<textarea rows="5" cols="100" required>${comment[i].content}</textarea>
+				<br>
+				<div>
+			</c:forEach>
 			
-			<table class="notice-table">
-				<thead>
-					<tr>
-						<th>No.</th>
-						<th>작성자</th>
-						<th>제목</th>
-						<th>시간</th>
-						<th>선택</th>
-			        </tr>
-				</thead>
-				<tbody>
-					<c:forEach var="i" begin="0" end="9">
-					<tr>
-						<td>${i+1}</td>
-						<td>${board[i].uid}</td>
-						<td onclick="location.href='noticeSpecific?board_id=${board[i].board_id}'">${board[i].title}</td>
-						<td>${board[i].date}</td>
-						<td>
-						<c:if test="${i < fn:length(board)}">
-						<input id="${board[i].board_id}" type="checkbox">
-						</c:if>
-						</td>
-					</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-			<div class="pagination">
-				<a id="prev" class="page-item">Previous</a>
-				<a class="page-item active">1</a>
-				<a id="next" class="page-item">Next</a>
-			</div>
-			<div class="button-container">
-				<button onclick="location.href='noticeAdd'">글 작성</button>
-				<button>수정</button>
-				<button onclick="noticeDelete();">삭제</button>
-			</div>
+			<br>
+			<form action="commentAdd" method="get">
+				<textarea id="content" name="content" rows="5" cols="100" placeholder="댓글 내용을 작성해주세요." required></textarea>
+				<input type="hidden" id="date" name="date" pattern="\d{4}-\d{2}-\d{2}" required>
+				<input type="hidden" id="board_id" name="board_id" value="${board_id}" required>
+				<br>
+				<button type="submit">추가</button>
+			</form>
+			
 		</div>
 	</div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
-function noticeDelete(){
-    $("input:checked").each(function(){
-    	location.href='noticeDelete?board_id=' + this.id;
-    });
-}
+	Date.prototype.toDateInputValue = (function() {
+	    var local = new Date(this);
+	    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+	    return local.toJSON().slice(0,10);
+	});
+	document.getElementById('date').value = new Date().toDateInputValue();
 </script>
